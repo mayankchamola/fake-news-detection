@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Check a News</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Check a News</h2>
+
+    <form method="POST">
+        <textarea name="news">{{ news }}</textarea>
+
+
+        <div class="btn-row">
+            <button type="submit" class="primary">Check News</button>
+            <button type="submit" name="explain" class="secondary">Explain News</button>
+
+            <!-- ✅ CLEAR BUTTON -->
+            <button type="submit" name="clear" class="danger">Clear</button>
+
+            <a href="/"><button type="button">Home</button></a>
+            <a href="/about"><button type="button">About</button></a>
+        </div>
+
+    </form>
+
+    {% if result %}
+    <div class="models">
+
+        <div class="card {{ 'true' if result.LR == 'Not A Fake News' else 'fake' }}">
+            Logistic Regression<br>
+            <small>{{ result.LR }}</small>
+        </div>
+
+        <div class="card {{ 'true' if result.RF == 'Not A Fake News' else 'fake' }}">
+            Random Forest<br>
+            <small>{{ result.RF }}</small>
+        </div>
+
+        <div class="card {{ 'true' if result.GB == 'Not A Fake News' else 'fake' }}">
+            Gradient Boosting<br>
+            <small>{{ result.GB }}</small>
+        </div>
+
+        <div class="card {{ 'true' if result.DT == 'Not A Fake News' else 'fake' }}">
+            Decision Tree<br>
+            <small>{{ result.DT }}</small>
+        </div>
+
+        <div class="card {{ 'true' if result.GEMINI == 'Not A Fake News' else 'fake' }}">
+            Gemini AI<br>
+            <small>{{ result.GEMINI }}</small>
+        </div>
+
+    </div>
+
+    <div class="final {{ 'true' if result.FINAL == 'Not A Fake News' else 'fake' }}">
+        <h2>{{ result.FINAL }}</h2>
+        <p>Confidence: {{ result.CONF }}%</p>
+    </div>
+    {% endif %}
+
+    {% if explanation %}
+    <div class="explain-box">
+        <h3>Gemini Explanation</h3>
+        <p>{{ explanation }}</p>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
